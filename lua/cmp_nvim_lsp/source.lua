@@ -78,7 +78,9 @@ end
 ---@param callback function
 source.resolve = function(self, completion_item, callback)
   -- hack to have the LSP not overwrite my text
-  completion_item.textEdit.range['end'] = completion_item.textEdit.range.start
+  if completion_item.textEdit ~= nil then
+    completion_item.textEdit.range['end'] = completion_item.textEdit.range.start
+  end
 
   -- client is stopped.
   if self.client.is_stopped() then
